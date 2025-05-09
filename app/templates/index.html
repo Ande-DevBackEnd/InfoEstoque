@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="../static/style.css">
+	<title>Login Admin</title>
+</head>
+<body id="principal">
+	<header>
+		<h1>InfoEstoque</h1>
+		<button type="submit" onclick="abrirModal('addUser')">Cadastrar</button>
+	</header>
+
+	{% with mensagens = get_flashed_messages(with_categories=true) %}
+		{% if mensagens %}
+		<ul class="flash-mensagens">
+		  {% for categoria, mensagem in mensagens %}
+		    <li class="{{ categoria }}">{{ mensagem }}</li>
+		  {% endfor %}
+		</ul>
+		{% endif %}
+	{% endwith %}
+
+	<div>
+		<form method="POST" action="/loginUser">
+			<h2>Logar Usuario</h2>
+			<hr><br>
+			<label>Email: </label>
+			<input type="email" name="emailLogin" required><br>
+			<label>Senha: </label>
+			<input type="password" name="senhaLogin" minlength="8" required><br>
+			<button type="Logar">Logar</button>
+		</form>
+	</div>
+
+	<div id="addUser" class="modal">
+		<div class="modal-conteudo">
+			<span class="fechar", onclick="fecharModal('addUser')">&times;</span>
+			<form method="POST" action="/cadastrarUser">
+				<h2>Cadastro de Usuario</h2>
+				<hr><br>
+				<label>Nome: </label>
+				<input type="text" name="nomeUser" required><br>
+				<label>Email: </label>
+				<input type="email" name="emailUser" required><br>
+				<label>Senha: </label>
+				<input type="password" name="senhaUser" minlength="8" required><br>
+				<button type="submit">Cadastrar</button>
+			</form>
+		</div>
+	</div>
+
+	<script>
+		function abrirModal() {
+			document.getElementById("addUser").style.display = "block"
+		}
+
+		function fecharModal() {
+			document.getElementById("addUser").style.display = "none"
+		}
+	</script>
+</body>
+</html>

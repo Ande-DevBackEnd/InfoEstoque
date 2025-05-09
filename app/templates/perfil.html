@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="../static/style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<title>Perfil</title>
+</head>
+<body id="principal">
+	<header>
+		<h1>Usuario - {{ usuario.nomeUser }}</h1>
+		<button class="icon_gear"><i class="fa-solid fa-gear" style="color: white;"></i></button>
+		<div id="menu-dropdown" class="dropdown hidden">
+		  <ul>
+		    <li><a href="/perfil">Editar Perfil</a></li>
+		    <li><a href="index.html">Sair</a></li>
+		  </ul>
+		</div>
+	</header>
+
+	{% with mensagens = get_flashed_messages(with_categories=true) %}
+		{% if mensagens %}
+		<ul class="flash-mensagens">
+		  {% for categoria, mensagem in mensagens %}
+		    <li class="{{ categoria }}">{{ mensagem }}</li>
+		  {% endfor %}
+		</ul>
+		{% endif %}
+	{% endwith %}
+
+	<script>
+	  const gearButton = document.querySelector('.icon_gear');
+	  const dropdownMenu = document.getElementById('menu-dropdown');
+
+	  gearButton.addEventListener('click', () => {
+	    dropdownMenu.classList.toggle('hidden');
+	  });
+
+	  // Esconde o menu se clicar fora
+	  document.addEventListener('click', function(event) {
+	    if (!gearButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+	      dropdownMenu.classList.add('hidden');
+	    }
+	  });
+	</script>
+</body>
+</html>
